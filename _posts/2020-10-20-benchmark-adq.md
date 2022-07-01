@@ -20,13 +20,13 @@ be the result of an earlier computation or a copy of data stored elsewhere.”)
 
 I have long held the belief that predictable latency is more important than
 throughput in a production environment for several reasons. Among them is the
-observation that you can horizontally [scale](https://cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext)
-your way toward any throughput target, but there is no easy fix for latency
-spikes. The importance of tail latency also increases with scale, in particular,
-the width of request fanouts. Production caches at Twitter adhere to a strict
-service-level objective (SLO) of p999 < 5 milliseconds (ms). In other words, our
-goal is to serve 99.9 percent of the requests under this amount of time.
-
+observation that you can horizontally scale your way toward any throughput
+target, but there is no easy fix for latency spikes. The importance of tail
+latency also [increases with scale](https://cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext),
+in particular, the width of request fanouts. Production caches at Twitter adhere
+to a strict service-level objective (SLO) of p999 < 5 milliseconds (ms). In
+other words, our goal is to serve 99.9 percent of the requests under this amount
+of time.
 
 ## Cache at Twitter
 Twitter has been using and developing a variety of cache services for many
@@ -39,10 +39,10 @@ scalable, and it needs to be operationally stable and flexible.
 
 ## An Open Source Cache Framework: Pelikan Cache
 Based on our production observations about cache performance and how it is
-closely tied to network performance, we built Pelikan Cache—a modular caching
-framework that provides an expanding collection of cache services, and includes
-a common library for building those services. This framework approach allows us
-to quickly develop new features and protocols.
+closely tied to network performance, we built [Pelikan Cache](http://twitter.github.io/pelikan/)—
+a modular caching framework that provides an expanding collection of cache
+services, and includes a common library for building those services. This
+framework approach allows us to quickly develop new features and protocols.
 
 Pelikan Cache separates performance-sensitive processing from the less
 performance sensitive processing, and it separates different types of
@@ -94,6 +94,16 @@ supported by Linux kernel 4.19 or later. ADQ lets software applications reserve
 queues (“express lanes”) explicitly on the network adapter. It also provides
 interfaces that application threads leverage to access the preserved queues.
 
+The purpose of ADQ is to increase application response time predictability
+within the realm of the network and networking software stack—especially as
+systems scale—with an easy-to-use interface. ADQ offers flow segregation at the
+network adapter queue level by offloading some aspects of flow management to
+hardware, and it allows the application to directly poll reserved queues with
+little or no code changes. The ease-of-use aspect is just as important. For the
+vast majority of businesses, including Twitter, benchmark advantages are easily
+overruled by operational constraints. A technology that can be readily deployed
+is one that can have actual impact.
+
 To learn more about how ADQ works with Linux, refer to my notes [here](https://github.com/twitter/pelikan/wiki/Notes-on-ADQ).
 
 ## Test for Rough Terrain
@@ -116,6 +126,8 @@ determined that 240K connections per host gets us well into the tail of
 concurrent connections per host. Third, we wanted to test a wide range of
 payload sizes. Knowing the network bottlenecks from experience, we expected the
 payload size to also play a role in both throughput and latency.
+
+<div style="text-align: center; padding: 20px 0px 5px; font-size: large"><p>Table 1: Master Test Plan</p></div>
 
 | Key Parameter     | Value(s)                   |
 |-------------------|----------------------------|
@@ -217,7 +229,8 @@ written with assistance from Todd Koelling at Intel and Kaia Communications.
 
 ## Appendix
 
-#### Test Configuration
+
+<div style="text-align: center; padding: 20px 0px 5px; font-size: large"><p>Table 2: Test Configuration</p></div>
 
 |                                                | System under Test (SUT)                                  | Client                                    |
 |------------------------------------------------|----------------------------------------------------------|-------------------------------------------|
@@ -253,7 +266,7 @@ written with assistance from Todd Koelling at Intel and Kaia Communications.
 | Compiler                                       | gcc (GCC)                                                | rustc                                     |
 | Network Adapter  Driver                        | ice 1.0.4                                                | mlx4_en 4.0-0                             |
 
-#### ADQ Related
+<div style="text-align: center; padding: 20px 0px 5px; font-size: large"><p>Table 3: ADQ Related</p></div>
 
 |                                          | ADQ “Off” Baseline | ADQ “On” |
 |------------------------------------------|--------------------|----------|

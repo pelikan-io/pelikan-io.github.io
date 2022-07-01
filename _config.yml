@@ -21,6 +21,10 @@ favicon: "/asset/img/round_icon.jpg"
 # Build settings
 markdown: kramdown
 
+sass:
+  sass_dir: _sass
+  style: compressed
+
 # permalink: /:year/:month/:day/:title.html
 permalink: /:year/:title.html
 
