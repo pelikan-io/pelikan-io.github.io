@@ -11,7 +11,7 @@ email: pelikan-cache@googlegroups.com
 description: > # this means to ignore newlines until "baseurl:"
   Pelikan is a framework for building cache services.
 baseurl: "/"
-url: "https://pelikan-io.github.io"
+url: "https://pelikan.io"
 githuburl: "https://github.com/twitter/pelikan"
 discussurl: "https://pelikan.zulipchat.com"
 twitter_username: pelikan_cache
