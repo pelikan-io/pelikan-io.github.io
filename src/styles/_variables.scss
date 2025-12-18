@@ -1,0 +1,33 @@
+// =============================================================================
+// Shared variables, mixins, and placeholders
+// =============================================================================
+
+// Typography
+$base-font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+$code-font-family: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+$base-font-size:   16px;
+$base-font-weight: 400;
+$small-font-size:  $base-font-size * 0.875;
+$base-line-height: 1.6;
+
+// Layout
+$spacing-unit:     30px;
+$content-width:    800px;
+$on-palm:          600px;
+$on-laptop:        800px;
+
+// Media query mixin
+@mixin media-query($device) {
+    @media screen and (max-width: $device) {
+        @content;
+    }
+}
+
+// Clearfix placeholder
+%clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}

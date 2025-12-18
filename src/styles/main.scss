@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+// =============================================================================
+// Load all partials using @use (avoids deprecated @import)
+// Note: @use must come before any other rules
+// =============================================================================
+
+@use "theme";
+@use "base";
+@use "img";
+@use "layout";
+@use "syntax-highlighting";
+@use "table";
+
+// IBM Plex fonts (plain CSS @import for external URL is allowed after @use)
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');

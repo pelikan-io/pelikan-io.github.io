@@ -1,0 +1,46 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, date, author, author_url } = post.data;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+
+const isoDate = date.toISOString();
+---
+
+<BaseLayout title={title}>
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">{title}</h1>
+      <p class="post-meta">
+        <time datetime={isoDate} itemprop="datePublished">{formattedDate}</time>
+        {author && (
+          <>
+            {' • '}
+            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              {author_url ? (
+                <a href={author_url} itemprop="url"><span itemprop="name">{author}</span></a>
+              ) : (
+                <span itemprop="name">{author}</span>
+              )}
+            </span>
+          </>
+        )}
+      </p>
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

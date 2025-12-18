@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const talks = await getCollection('talks');
+const sortedTalks = talks.sort((a, b) => {
+  const dateA = a.data.date ?? new Date(0);
+  const dateB = b.data.date ?? new Date(0);
+  return dateB.valueOf() - dateA.valueOf();
+});
+---
+
+<BaseLayout title="Talks">
+  <ul class="talk-list">
+    {sortedTalks.map((talk) => (
+      <div class="page-col-wrapper">
+        <div class="page-col">
+          <a href={talk.data.cover}>
+            <img src={talk.data.cover} alt="cover image">
+          </a>
+        </div>
+        <div class="page-double-col">
+          <h2>
+            <a class="talk-link" href={`/talks/${talk.slug}/`}>{talk.data.title}</a>
+          </h2>
+          <span class="talk-meta">
+            {talk.data.date?.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+          </span>
+        </div>
+      </div>
+    ))}
+  </ul>
+</BaseLayout>

@@ -1,0 +1,95 @@
+---
+import '../styles/main.scss';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  talk: CollectionEntry<'talks'>;
+}
+
+const { talk } = Astro.props;
+const { title, author, author_url, date, event, location, talk_url, slides_url, video_url, talk_duration } = talk.data;
+
+const formattedDate = date?.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+
+const isoDate = date?.toISOString();
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{title}</title>
+  <meta name="description" content={SITE_DESCRIPTION}>
+
+  <link rel="canonical" href={canonicalURL}>
+  <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/feed.xml">
+  <link rel="icon" href="/assets/img/round_icon.jpg" type="image/jpg" sizes="16x16">
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6415091fda884e2987d92ab9a2dcbcdc"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</head>
+
+<body>
+  <Header />
+
+  <article class="talk" itemscope itemtype="http://schema.org/Article">
+    <div class="wrapper-wide">
+      <header class="talk-header">
+        <h1 class="talk-title" itemprop="name headline">{title}</h1>
+        {author && (
+          <div class="talk-meta">
+            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              {author_url ? (
+                <a href={author_url} itemprop="url"><span itemprop="name">{author}</span></a>
+              ) : (
+                <span itemprop="name">{author}</span>
+              )}
+            </span>
+            {date && (
+              <>
+                {' • '}
+                <span class="talk-meta" itemprop="datePosted" itemscope itemtype="http://schema.org/Date">
+                  <time datetime={isoDate}>{formattedDate}</time>
+                </span>
+              </>
+            )}
+          </div>
+        )}
+        {event && (
+          <div class="talk-meta" itemscope itemtype="http://schema.org/Event">
+            <span itemprop="name">{event}</span>
+            {' • '}
+            <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+              {location}
+            </span>
+          </div>
+        )}
+        <div class="talk-info">
+          This is a text version of <a href={talk_url}>the talk</a>.
+          You can also download <a href={slides_url}>the slides</a> and watch <a href={video_url}>the video</a> [{talk_duration}].
+        </div>
+      </header>
+    </div>
+
+    <div class="wrapper-wide">
+      <div class="talk-content" itemprop="articleBody">
+        <slot />
+      </div>
+    </div>
+  </article>
+
+  <Footer />
+</body>
+</html>
