@@ -1,5 +1,17 @@
+# Astro
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Editor
+.DS_Store
+*.swp
+*.swo
+.vscode/
+
+# Build artifacts (legacy Jekyll)
 _bin
 _build
 _site
-
-.DS_Store

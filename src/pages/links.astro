@@ -1,0 +1,45 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout title="Links">
+  <h4>Cache Server</h4>
+
+  <ul>
+    <li><a href="http://memcached.org/"><code>memcached</code></a>: one of the earliest and arguably the most well-known cache server out there.</li>
+    <li><a href="http://redis.io/"><code>redis</code></a>: a very popular, feature-rich data structure server that is often used as cache.</li>
+    <li><a href="https://github.com/twitter/twemcache/"><code>twemcache</code></a>: Twitter's fork of memcached.</li>
+    <li><a href="https://github.com/twitter/fatcache/"><code>fatcache</code></a>: a memcached-compatible cache server that runs on SSD.</li>
+  </ul>
+
+  <h4>Router / Cluster</h4>
+
+  <ul>
+    <li><a href="https://github.com/twitter/twemproxy/"><code>twemproxy</code></a>: a proxy for memcached and redis with cluster management capabilities.</li>
+    <li><a href="https://github.com/facebook/mcrouter/"><code>mcrouter</code></a>: a memcached protocol router.</li>
+    <li><code>redis</code> comes with native clustering support starting from <a href="https://raw.githubusercontent.com/antirez/redis/3.0/00-RELEASENOTES">version 3.0</a>. Additionally, commercial solutions are provided by <a href="https://redislabs.com/redis-cluster">Redis Labs</a></li>
+  </ul>
+
+  <h4>Client</h4>
+
+  <ul>
+    <li>redis clients: <a href="http://redis.io/clients">redis.io</a> has an excellent overview of all the popular redis clients.</li>
+    <li>memcached clients: as numerous as the dazzling collection of redis clients. Here are a few:
+      <ul>
+        <li><a href="http://libmemcached.org/libMemcached.html"><code>libmemcached</code></a>: a C/C++ client library and tools for memcached.</li>
+        <li><a href="https://pypi.python.org/pypi/python-memcached"><code>python-memcached</code></a>: a python client library for memcached.</li>
+        <li><a href="https://github.com/twitter/finagle/tree/develop/finagle-memcached"><code>finagle-memcached</code></a>: Twitter's default memcached client, part of <a href="https://twitter.github.io/finagle/">finagle project</a>.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Tools</h4>
+
+  <ul>
+    <li><a href="https://github.com/twitter/rpc-perf"><code>rpc-perf</code></a>: a load generator and benchmark tool fast enough to keep up with the cache servers. Supports memcached and redis protocols.</li>
+  </ul>
+
+  <div class="page-info">
+    <p>Contact us if you want to add or edit a link on this page.</p>
+  </div>
+</PageLayout>

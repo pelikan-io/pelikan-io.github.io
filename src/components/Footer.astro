@@ -1,0 +1,35 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION, GITHUB_URL, GITHUB_USERNAME, TWITTER_USERNAME, DISCORD_URL } from '../consts';
+import IconGithub from './IconGithub.astro';
+import IconTwitter from './IconTwitter.astro';
+---
+
+<footer class="site-footer">
+  <div class="wrapper">
+    <h2 class="footer-heading"><a href={GITHUB_URL}>{SITE_TITLE}</a></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>Discussions:</li>
+          <li><a href={DISCORD_URL}>Pelikan on Discord</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li>
+            <IconGithub username={GITHUB_USERNAME} />
+          </li>
+          <li>
+            <IconTwitter username={TWITTER_USERNAME} />
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>{SITE_DESCRIPTION}</p>
+      </div>
+    </div>
+  </div>
+</footer>

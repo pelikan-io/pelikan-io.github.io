@@ -1,0 +1,94 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { DISCORD_URL } from '../consts';
+---
+
+<PageLayout title="Project">
+  <a href="https://github.com/pelikan-io/pelikan">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub">
+  </a>
+
+  <p>
+    <a href="https://github.com/pelikan-io/pelikan">Pelikan</a> is a cache framework written in C.
+    It provides an expanding collection of cache services, and a common library,
+    <a href="https://github.com/pelikan-io/ccommon">ccommon</a>, used to build them.
+  </p>
+
+  <p>
+    Pelikan optimizes for high-throughput, low-latency data access in a
+    datacenter-like environment. It adopts a highly modularized architecture,
+    and is carefully implemented to achieve high-performance and reliability
+    at scale. Its design captures much of the commonality among similar
+    systems, such as Memcached, Redis and Twemproxy, and makes improving and
+    iterating on such services easier and faster.
+  </p>
+
+  <h3>Architecture</h3>
+
+  <p>
+    Pelikan Cache separates performance-sensitive processing from the less
+    performance sensitive processing, and it separates different types of
+    performance-sensitive processing from each other. Data request-response
+    processing and connection establishment are assigned to the data plane (the
+    "fast path"). Everything else is assigned to the control plane. Each major
+    processing pipeline gets its own thread— <code>worker</code>, <code>server</code>, <code>admin</code>, and
+    <code>debug</code> (see Figure 1).
+  </p>
+
+  <figure>
+    <figcaption>Figure 1: Pelikan Architecture</figcaption>
+    <img class="single" src="/assets/img/pelikan-arch.png" alt="Pelikan Architecture">
+  </figure>
+
+  <p>Pelikan Cache brings several benefits to Twitter's caching:</p>
+  <ul>
+    <li>Separation of control and data plane</li>
+    <li>Data plane operations are guaranteed to be nonblocking, using lockless data structures to deliver low latencies</li>
+    <li>Per-module configuration options and metrics that can be easily composed</li>
+    <li>Multiple storage and API protocol implementations, and the ability to easily combine and extend them</li>
+    <li>Low-overhead command logger that keeps up with full throughput and captures all request metadata for analysis</li>
+  </ul>
+
+  <h3>Products</h3>
+
+  <p>
+    Currently Pelikan yields three production-ready products, all of which are
+    backends/servers.
+  </p>
+
+  <ul>
+    <li><code>pelikan_twemcache</code>: a Twemcache replacement</li>
+    <li><code>pelikan_slimcache</code>: a Memcached-like server with ultra-low memory overhead—compared to Memcached/Redis, the per-key overhead is reduced by up to 90%</li>
+    <li><code>pelikan_pingserver</code>: an over-engineered ping server useful as a tutorial and for measuring baseline RPC performance</li>
+  </ul>
+
+  <h2>Community</h2>
+
+  <ul>
+    <li>Join our <a href={DISCORD_URL}>chatroom on Discord</a> for questions and discussions</li>
+    <li>Follow us on Twitter: <a href="https://twitter.com/pelikan_cache">@pelikan_cache</a></li>
+    <li>Visit <a href="https://pelikan.io">pelikan.io</a></li>
+  </ul>
+
+  <h3>Contributing</h3>
+
+  <p>
+    Please take a look at our <a href="https://github.com/pelikan-io/pelikan/blob/master/docs/manifesto.rst">community manifesto</a>
+    and <a href="https://github.com/pelikan-io/pelikan/blob/master/docs/coding_style.rst">coding style guide</a>.
+  </p>
+
+  <p>
+    To get a sense of where things are going next, please visit our
+    <a href="https://github.com/pelikan-io/pelikan/wiki/Roadmap">Roadmap wiki</a>.
+  </p>
+
+  <p>If you want to submit a patch, please follow these steps:</p>
+
+  <ol>
+    <li><a href="https://github.com/pelikan-io/pelikan/issues">create a new issue</a></li>
+    <li>fork on github & clone your fork</li>
+    <li>create a feature branch on your fork</li>
+    <li>push your feature branch</li>
+    <li>create a pull request linked to the issue</li>
+  </ol>
+</PageLayout>

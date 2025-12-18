@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IconGithubLarge from '../components/IconGithubLarge.astro';
+import { getCollection } from 'astro:content';
+import { DISCORD_URL } from '../consts';
+
+const posts = await getCollection('posts');
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout>
+  <div class="home">
+    <p class="page-announce">
+      Pelikan is a cache framework written in Rust and (historically) C. It
+      provides an expanding collection of cache services, including multiple
+      backends and proxies. It offers best-in-kind performance, superb operational
+      ergonomics, and excellent monitoring capabilities, making it suitable for
+      both local and large scale deployment. The modular design has attracted
+      researchers from multiple institutions to conduct cutting-edge cache
+      research and ready-to-ship development on the Pelikan platform.
+    </p>
+
+    <div class="page-col-wrapper">
+      <div class="page-col">
+        <div style="text-align: center;">
+          <h2>Source</h2>
+          <a href="https://github.com/pelikan-io/pelikan">
+            <span class="icon-large icon--github">
+              <IconGithubLarge />
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="page-col">
+        <div style="text-align: center;">
+          <h2>Discussion</h2>
+          <span>
+            <a href={DISCORD_URL}>
+              <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg" alt="Discord link" style="max-width:50%;">
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="page-col">
+        <div style="text-align: center;">
+          <h2>Follow</h2>
+          <p class="rss-subscribe" style="padding-bottom: 4px;">
+            <a href="/feed.xml">Blog RSS</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="page-heading">Talks</h1>
+    <ul class="video-list">
+      <li>
+        <div class="video-text-wrap">
+          <iframe width="320" height="180" src="https://www.youtube.com/embed/pLRztKYvMLk" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <h4>Cache a la carte: a framework for in-memory caching</h4>
+        <p class="video-text">
+          In this StrangeLoop 2015 talk, we explained Pelikan's approach toward a generalized framework for building caching software, and how we design the system for both performance and operations.
+        </p>
+      </li>
+    </ul>
+
+    <h1 class="page-heading">Posts</h1>
+    <ul class="post-list">
+      {sortedPosts.map((post) => (
+        <li>
+          <span class="post-meta">
+            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          <h2>
+            <a class="post-link" href={`/blog/${post.slug}/`}>{post.data.title}</a>
+          </h2>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
