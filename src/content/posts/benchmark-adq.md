@@ -4,7 +4,7 @@ title:  "Taming Tail Latency and Achieving Predictability"
 date:   2020-10-20 18:02:00 -0700
 author: Yao Yue
 tags: performance, benchmark, latency, throughput
-twitter_username: thinkingfish
+author_url: https://yaoyue.org
 ---
 
 **Twitter is accelerating its Pelikan Cache framework by using the Intel® Ethernet
@@ -51,7 +51,10 @@ processing and connection establishment are assigned to the data plane (the
 processing pipeline gets its own thread— `worker`, `server`, `admin`, and
 `debug` (see Figure 1).
 
-  {% include image.html url="/assets/img/pelikan-arch.png" description="Figure 1: Pelikan Architecture" class="single" %}
+<figure class="single">
+  <img src="/assets/img/pelikan-arch.png" alt="Figure 1: Pelikan Architecture" />
+  <figcaption>Figure 1: Pelikan Architecture</figcaption>
+</figure>
 
 Pelikan Cache brings several benefits to Twitter’s caching:
 - Separation of control and data plane
@@ -169,7 +172,11 @@ The Y-axes are shown in log scale due to the wide range of values. These charts
 use box plots, where the orange line segments show the mean value, the colored
 boxes show the range of values with 0.95 confidence.
 
-  {% include image2.html url1="/assets/img/adq/thrpt_1_item_64_P999.svg" url2="/assets/img/adq/thrpt_1_item_4096_P999.svg" description="Figure 2: p999 at 1M QPS, 64-byte (left) and 4096-byte (right) payload" %}
+<figure class="image-pair">
+  <img src="/assets/img/adq/thrpt_1_item_64_P999.svg" alt="p999 at 1M QPS, 64-byte payload" />
+  <img src="/assets/img/adq/thrpt_1_item_4096_P999.svg" alt="p999 at 1M QPS, 4096-byte payload" />
+  <figcaption>Figure 2: p999 at 1M QPS, 64-byte (left) and 4096-byte (right) payload</figcaption>
+</figure>
 
 At 1M QPS, with a 64-byte payload and a 4,096-byte payload (see Figure 2), it is
 very difficult for the non-ADQ configuration to consistently stay within the
@@ -186,14 +193,21 @@ much more modest increase. Thus, we could probably change our definition of
 cache SLO to be about p9999 instead of p999, and we could tighten the range down
 from 5ms to 2-3ms.
 
-  {% include image2.html url1="/assets/img/adq/thrpt_1_item_64_P9999.svg" url2="/assets/img/adq/thrpt_1_item_4096_P9999.svg" description="Figure 3: p9999 at 1M QPS, 64-byte (left) and 4096-byte (right) payload" %}
+<figure class="image-pair">
+  <img src="/assets/img/adq/thrpt_1_item_64_P9999.svg" alt="p9999 at 1M QPS, 64-byte payload" />
+  <img src="/assets/img/adq/thrpt_1_item_4096_P9999.svg" alt="p9999 at 1M QPS, 4096-byte payload" />
+  <figcaption>Figure 3: p9999 at 1M QPS, 64-byte (left) and 4096-byte (right) payload</figcaption>
+</figure>
 
 We then downsized the throughput of the non-ADQ configuration to 500K QPS to
 learn if it would hold up; Figure 4 shows the results. If we go by the boxes
 (showing 0.95 confidence range) instead of the worst data points, we can just
 barely declare the non-ADQ configuration as usable at 500K QPS.
 
-  {% include image.html url="/assets/img/adq/no_adq_thrpt_0.5_P999.svg" description="Figure 4: p999 at 500K QPS, 64-byte and 4096-byte payload, no-ADQ" class="w60" %}
+<figure class="w60">
+  <img src="/assets/img/adq/no_adq_thrpt_0.5_P999.svg" alt="Figure 4: p999 at 500K QPS, 64-byte and 4096-byte payload, no-ADQ" />
+  <figcaption>Figure 4: p999 at 500K QPS, 64-byte and 4096-byte payload, no-ADQ</figcaption>
+</figure>
 
 ## Conclusion
 The Intel Ethernet 800 Series Network Adapter with ADQ technology did an

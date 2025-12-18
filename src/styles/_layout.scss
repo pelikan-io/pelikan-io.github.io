@@ -4,63 +4,102 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
-    border-bottom: 1px solid $grey-color-light;
+    border-top: 4px solid var(--color-primary);
+    border-bottom: 1px solid var(--color-border);
     min-height: 56px;
-
-    // Positioning context for the mobile navigation icon
+    background-color: var(--color-bg);
     position: relative;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+    > .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 56px;
+
+        // Disable clearfix pseudo-element in flex context
+        &::after {
+            display: none;
+        }
+    }
 }
 
 .site-title {
-    font-size: 32px;
-    font-weight: 300;
-    line-height: 60px;
-    letter-spacing: -1px;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
     margin-bottom: 0;
-    float: left;
 
     &,
     &:visited {
-        color: $grey-color-dark;
+        color: var(--color-text);
+    }
+
+    &:hover {
+        color: var(--color-primary);
+        text-decoration: none;
     }
 }
 
 .site-nav {
-    float: right;
-    line-height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
     .menu-icon {
         display: none;
     }
 
     .page-link {
-        color: $text-color;
-        font-weight: bold;
+        color: var(--color-text-secondary);
+        font-weight: 500;
+        font-size: 15px;
         line-height: $base-line-height;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: color 0.15s ease, background-color 0.15s ease;
 
-        // Gaps between nav items, but not on the last one
         &:not(:last-child) {
-            margin-right: 20px;
+            margin-right: 4px;
         }
+
+        &:hover {
+            color: var(--color-text);
+            background-color: var(--color-bg-secondary);
+            text-decoration: none;
+        }
+    }
+
+    .trigger {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-separator {
+        width: 1px;
+        height: 20px;
+        background-color: var(--color-border);
+        margin: 0 4px;
     }
 
     @include media-query($on-palm) {
         position: absolute;
         top: 9px;
         right: math.div($spacing-unit, 2);
-        background-color: $background-color;
-        border: 1px solid $grey-color-light;
-        border-radius: 5px;
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
         text-align: right;
+        line-height: normal;
+        padding: 0;
 
         .menu-icon {
             display: block;
             float: right;
             width: 36px;
-            height: 26px;
+            height: 36px;
             line-height: 0;
-            padding-top: 10px;
+            padding: 8px;
             text-align: center;
 
             > svg {
@@ -68,7 +107,7 @@
                 height: 15px;
 
                 path {
-                    fill: $grey-color-dark;
+                    fill: var(--color-text-secondary);
                 }
             }
         }
@@ -76,38 +115,52 @@
         .trigger {
             clear: both;
             display: none;
+            flex-direction: column;
+            align-items: stretch;
         }
 
         &:hover .trigger {
-            display: block;
-            padding-bottom: 5px;
+            display: flex;
+            padding: 8px;
         }
 
         .page-link {
             display: block;
-            padding: 5px 10px;
+            padding: 8px 12px;
+            text-align: left;
 
             &:not(:last-child) {
                 margin-right: 0;
             }
-            margin-left: 20px;
+        }
+
+        .nav-separator {
+            display: none;
         }
     }
 }
-
-
 
 /**
  * Site footer
  */
 .site-footer {
-    border-top: 1px solid $grey-color-light;
+    border-top: 1px solid var(--color-border);
     padding: $spacing-unit 0;
+    background-color: var(--color-bg-secondary);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .footer-heading {
     font-size: 18px;
     margin-bottom: math.div($spacing-unit, 2);
+
+    a {
+        color: var(--color-text);
+
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
 }
 
 .contact-list,
@@ -118,7 +171,7 @@
 
 .footer-col-wrapper {
     font-size: 15px;
-    color: $grey-color;
+    color: var(--color-text-secondary);
     margin-left: math.div(-$spacing-unit, 2);
     @extend %clearfix;
 }
@@ -159,30 +212,31 @@
     }
 }
 
-
-
 /**
  * Page content
  */
 .page-content {
     padding: $spacing-unit 0;
+    min-height: calc(100vh - 200px);
 }
 
 .page-heading {
     margin-top: $spacing-unit;
     font-size: 26px;
+    color: var(--color-text);
 }
 
 .page-announce {
     font-size: 18px;
-    line-height: 1.5;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
 }
 
 .page-info {
     margin-top: math.div($spacing-unit, 2);
     margin-bottom: math.div($spacing-unit, 2);
     padding: 10px 5px 1px 5px;
-    color: $grey-color-dark;
+    color: var(--color-text-secondary);
 }
 
 .page-col-wrapper {
@@ -225,13 +279,13 @@
 
 .news-meta {
     font-size: $small-font-size;
-    color: $grey-color-dark;
+    color: var(--color-text-muted);
 }
 
 .video-list {
     padding: 0 0 $spacing-unit 0;
     margin-left: 0;
-    margin-right:  $spacing-unit * 1.5;
+    margin-right: $spacing-unit * 1.5;
     list-style: none;
 
     @include media-query($on-laptop) {
@@ -246,13 +300,17 @@
 .video-text-wrap {
     float: right;
     margin-left: $spacing-unit;
+    border-radius: 8px;
+    overflow: hidden;
+
     @include media-query($on-laptop) {
+        float: none;
         margin-left: 0;
+        margin-bottom: math.div($spacing-unit, 2);
     }
 
     > iframe {
-        width: 320;
-        height: 180;
+        display: block;
         @include media-query($on-laptop) {
             width: 100%;
         }
@@ -261,7 +319,7 @@
 
 .video-text {
     font-size: $small-font-size;
-    color: $grey-color-dark;
+    color: var(--color-text-secondary);
 }
 
 .post-list {
@@ -270,9 +328,14 @@
 
     > li {
         margin-bottom: $spacing-unit;
+        padding-bottom: $spacing-unit;
+        border-bottom: 1px solid var(--color-border-light);
+
+        &:last-child {
+            border-bottom: none;
+        }
     }
 }
-
 
 /**
  * Posts
@@ -282,23 +345,33 @@
 }
 
 .post-title {
-    font-size: 42px;
-    letter-spacing: -1px;
-    line-height: 1;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-text);
 
     @include media-query($on-laptop) {
-        font-size: 36px;
+        font-size: 32px;
     }
 }
 
 .post-meta {
     font-size: $small-font-size;
-    color: $grey-color;
+    color: var(--color-text-muted);
+    margin-top: 8px;
 }
 
 .post-link {
     display: block;
     font-size: 22px;
+    font-weight: 600;
+    color: var(--color-text);
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
 }
 
 .post-content {
@@ -307,16 +380,16 @@
 
     h1 {
         margin-top: $spacing-unit * 1.5;
-        font-size: 34px;
+        font-size: 32px;
 
         @include media-query($on-laptop) {
-            font-size: 28px;
+            font-size: 26px;
         }
     }
 
     h2 {
-        margin-top: $spacing-unit;
-        font-size: 28px;
+        margin-top: $spacing-unit * 1.25;
+        font-size: 26px;
 
         @include media-query($on-laptop) {
             font-size: 22px;
@@ -324,7 +397,8 @@
     }
 
     h3 {
-        font-size: 24px;
+        margin-top: $spacing-unit;
+        font-size: 22px;
 
         @include media-query($on-laptop) {
             font-size: 20px;
@@ -332,51 +406,64 @@
     }
 
     h4 {
-        font-size: 20px;
+        font-size: 18px;
 
         @include media-query($on-laptop) {
-            font-size: 18px;
+            font-size: 17px;
         }
     }
-}
 
+    // Nice styling for inline images in posts
+    img {
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+    }
+}
 
 /**
  * Talk content
  */
+.talk {
+    padding-top: $spacing-unit;
+}
+
 .talk-cover {
     margin-top: $spacing-unit;
 }
 
 .talk-meta {
     font-size: $small-font-size;
-    color: $grey-color;
+    color: var(--color-text-muted);
 }
 
 .talk-header {
-    margin-bottom: 0;
+    margin-bottom: $spacing-unit;
 }
 
 .talk-title {
     font-size: 32px;
-    letter-spacing: -1px;
-    line-height: 1;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
 
     @include media-query($on-laptop) {
-        font-size: 28px;
+        font-size: 26px;
     }
 }
 
 .talk-info {
-    margin-top: 0;
+    margin-top: 8px;
     margin-bottom: $spacing-unit;
-    padding: 10px 5px 1px 0px;
-    color: $grey-color-dark;
+    padding: 12px 16px;
+    background-color: var(--color-bg-secondary);
+    border-radius: 8px;
+    color: var(--color-text-secondary);
+    font-size: 15px;
 }
 
 .talk-link {
     display: block;
     font-size: 22px;
+    font-weight: 600;
 }
 
 .talk-content {
@@ -395,6 +482,12 @@
     margin-bottom: $spacing-unit;
     padding-left: math.div($spacing-unit, 2);
     width: calc(39% - (#{$spacing-unit} / 2));
+
+    img {
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+    }
+
     @include media-query($on-laptop) {
         float: none;
         width: calc(100% - (#{$spacing-unit} / 2));

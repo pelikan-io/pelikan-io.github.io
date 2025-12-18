@@ -4,7 +4,7 @@ title:  "Why Pelikan"
 date:   2019-09-20 02:00:00 -0700
 author: Yao Yue
 tags: design, security, performance, operations
-twitter_username: thinkingfish
+author_url: https://yaoyue.org
 ---
 
 *This post was originally written as an internal document. Some links, project

@@ -4,7 +4,7 @@ title:  "Segcache: a memory-efficient, scalable cache for small objects with TTL
 date:   2021-04-13 10:00:00 -0700
 author: Yao Yue (draft by Juncheng Yang)
 tags: nsdi, ttl, throughput, scalability, storage
-twitter_username: thinkingfish
+author_url: https://yaoyue.org
 ---
 
 **In collaboration with Carnegie Mellon University, Twitter is building the
@@ -62,7 +62,10 @@ and [Redis](https://news.ycombinator.com/item?id=19664483) recognize the
 importance of TTL all along. We summarize existing techniques used in Memcached,
 Redis, and some research systems in the following table.
 
-  {% include image.html url="/assets/img/segcache/expiration.svg" description="A summary of existing techniques for removing expired objects" class="single" %}
+<figure class="single">
+  <img src="/assets/img/segcache/expiration.svg" alt="A summary of existing techniques for removing expired objects" />
+  <figcaption>A summary of existing techniques for removing expired objects</figcaption>
+</figure>
 
 While caches have to respect TTL, existing solutions often do not optimize for
 expiration. They either incur high computation overhead performing expiration,
@@ -111,7 +114,10 @@ efficiency and high throughput:
 5. Similar per-thread throughput as Pelikan's slab storage, and up to 40% higher than Memcached for Twitter's workloads.
 6. Near-linear scalability: we tested up to 24 threads, and achieved 8x higher throughput than Memcached [^4].
 
-  {% include image.html url="/assets/img/segcache/segcache.svg" description="Design Overview of Segcache" class="single" %}
+<figure class="single">
+  <img src="/assets/img/segcache/segcache.svg" alt="Design Overview of Segcache" />
+  <figcaption>Design Overview of Segcache</figcaption>
+</figure>
 
 
 Segcache has three main components.
@@ -143,7 +149,10 @@ Three design principles guided the design of Segcache.
 
 ### Sharing economy
 
-  {% include image.html url="/assets/img/segcache/sharing.svg" description="Segcache reduces per-object metadata by sharing" class="single" %}
+<figure class="single">
+  <img src="/assets/img/segcache/sharing.svg" alt="Segcache reduces per-object metadata by sharing" />
+  <figcaption>Segcache reduces per-object metadata by sharing</figcaption>
+</figure>
 
 In society, sharing improves resource utilization in general. Its manifestation
 in computer systems includes multi-tenant hardware and serverless computing.
@@ -191,7 +200,10 @@ the throughput and scalability of the storage design. The figure below
 shows the overhead comparison of Memcached's object tracking and Segcache's
 segment tracking.
 
-  {% include image.html url="/assets/img/segcache/macromanagement.svg" description="Segcache performs macro management to improve throughput" class="single" %}
+<figure class="single">
+  <img src="/assets/img/segcache/macromanagement.svg" alt="Segcache performs macro management to improve throughput" />
+  <figcaption>Segcache performs macro management to improve throughput</figcaption>
+</figure>
 
 Memcached manages objects through several queues, such as object LRU queue and
 free chunk queue. Most operations require touching at least one queue. For
@@ -235,7 +247,10 @@ achieve the miss ratios observed in production. This is more intuitive as it
 shows how much DRAM we should provision for each design to match the current
 production miss ratio.
 
-  {% include image.html url="/assets/img/segcache/evalEfficiency.svg" description="Relative memory footprint to achieve current production miss ratio" class="single" %}
+<figure class="single">
+  <img src="/assets/img/segcache/evalEfficiency.svg" alt="Relative memory footprint to achieve current production miss ratio" />
+  <figcaption>Relative memory footprint to achieve current production miss ratio</figcaption>
+</figure>
 
 Compared to Pelikan-slab (the bar labeled with Production), Segcache can reduce
 the memory requirement by 40%-90%. While comparing to state-of-the-art, Segcache
@@ -249,14 +264,20 @@ The figure below shows that Segcache achieves similar single-thread
 throughput as Pelikan-slab, both of which are significantly higher than
 Memcached and the two research systems.
 
-  {% include image.html url="/assets/img/segcache/evalThroughput.svg" description="Throughput of different systems" class="single" %}
+<figure class="single">
+  <img src="/assets/img/segcache/evalThroughput.svg" alt="Throughput of different systems" />
+  <figcaption>Throughput of different systems</figcaption>
+</figure>
 
 In terms of scalability, we observe that Memcached can scale up to 8 threads.
 After that, we could not achieve higher throughput by adding more cores.
 Meanwhile, Segcache can scale almost linearly to 24 threads in our test. At 24
 threads, it achieves 8x higher throughput than Memcached with 8 threads.
 
-  {% include image.html url="/assets/img/segcache/evalScalability.svg" description="Scalability of different systems" class="w60" %}
+<figure class="w60">
+  <img src="/assets/img/segcache/evalScalability.svg" alt="Scalability of different systems" />
+  <figcaption>Scalability of different systems</figcaption>
+</figure>
 
 ## Limitations
 
@@ -283,7 +304,6 @@ adoption. As we near production-readiness, we will talk about the system-wide
 optimization we performed to make Pelikan-segcache work well as a full-fledged
 cache backend.
 
-## Footnotes
 
 [^1]: Workloads with large objects or do not use TTL can also benefit from Segcache, but the benefit is smaller.
 [^2]: Pelikan provides cuckoo storage, which uses 5 bytes per object metadata. However, it only works for workloads in which all objects are of the same (or similar) size.

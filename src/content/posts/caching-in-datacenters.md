@@ -4,7 +4,7 @@ title:  "Caching in datacenters"
 date:   2016-04-03 04:56:00 -0700
 author: Yao Yue
 tags: design, performance, operations
-twitter_username: thinkingfish
+author_url: https://yaoyue.org
 ---
 
 *This is the first post in our [blog series](http://pelikan.io/blog/)

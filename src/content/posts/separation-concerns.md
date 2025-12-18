@@ -4,7 +4,7 @@ title:  "Separation of Concerns"
 date:   2016-05-25 00:20:00 -0700
 author: Yao Yue
 tags: design, performance, operations
-twitter_username: thinkingfish
+author_url: https://yaoyue.org
 ---
 
 *This is the third post in our [blog series](http://pelikan.io/blog/)

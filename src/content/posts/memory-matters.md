@@ -4,7 +4,7 @@ title:  "Memory Matters"
 date:   2019-05-07 22:00:00 -0800
 author: Yao Yue
 tags: design, performance, operations
-twitter_username: thinkingfish
+author_url: https://yaoyue.org
 ---
 
 *This is the fourth post in our [blog series](http://pelikan.io/blog/)

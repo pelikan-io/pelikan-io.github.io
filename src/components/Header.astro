@@ -1,8 +1,8 @@
 ---
 import { SITE_TITLE } from '../consts';
+import ThemeToggle from './ThemeToggle.astro';
 
 const navPages = [
-  { title: 'Project', url: '/project/' },
   { title: 'Blog', url: '/blog/' },
   { title: 'Talks', url: '/talks/' },
   { title: 'Links', url: '/links/' },
@@ -26,6 +26,8 @@ const navPages = [
         {navPages.map((page) => (
           <a class="page-link" href={page.url}>{page.title}</a>
         ))}
+        <span class="nav-separator"></span>
+        <ThemeToggle />
       </div>
     </nav>
   </div>

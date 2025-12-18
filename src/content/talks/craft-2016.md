@@ -2,7 +2,7 @@
 title:  "Toward Better Design and Code"
 summary: "A case study with Pelikan cache"
 author: Yao Yue
-twitter_username: thinkingfish
+author_url: https://yaoyue.org
 event: "Craft Conference"
 date:   2016-04-29
 location: "Budapest, Hungary"

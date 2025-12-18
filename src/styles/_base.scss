@@ -1,6 +1,13 @@
 @use "sass:math";
 
 /**
+ * Box sizing reset
+ */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/**
  * Reset some basic elements
  */
 body, h1, h2, h3, h4, h5, h6,
@@ -10,24 +17,25 @@ dl, dd, ol, ul, figure {
     padding: 0;
 }
 
-
-
 /**
  * Basic styling
  */
+html {
+    background-color: var(--color-bg);
+}
+
 body {
     font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
-    color: $text-color;
-    background-color: $background-color;
+    color: var(--color-text);
+    background-color: var(--color-bg);
     -webkit-text-size-adjust: 100%;
     -webkit-font-feature-settings: "kern" 1;
     -moz-font-feature-settings: "kern" 1;
     -o-font-feature-settings: "kern" 1;
     font-feature-settings: "kern" 1;
     font-kerning: normal;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
-
-
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
@@ -39,8 +47,6 @@ ul, ol, dl, figure, table,
     margin-bottom: math.div($spacing-unit, 2);
 }
 
-
-
 /**
  * Images
  */
@@ -48,8 +54,6 @@ img {
     max-width: 100%;
     vertical-align: middle;
 }
-
-
 
 /**
  * Figures
@@ -60,9 +64,8 @@ figure > img {
 
 figcaption {
     font-size: $small-font-size;
+    color: var(--color-text-secondary);
 }
-
-
 
 /**
  * Lists
@@ -78,45 +81,41 @@ li {
     }
 }
 
-
-
 /**
  * Headings
  */
 h1, h2, h3, h4, h5, h6 {
-    font-weight: $base-font-weight;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
 }
-
-
 
 /**
  * Links
  */
 a {
-    color: $brand-color;
+    color: var(--color-link);
     text-decoration: none;
+    transition: color 0.15s ease;
 
     &:visited {
-        color: darken($brand-color, 15%);
+        color: var(--color-link-visited);
     }
 
     &:hover {
-        color: $text-color;
+        color: var(--color-primary);
         text-decoration: underline;
     }
 }
-
-
 
 /**
  * Blockquotes
  */
 blockquote {
-    color: $grey-color;
-    border-left: 4px solid $grey-color-light;
+    color: var(--color-text-secondary);
+    border-left: 4px solid var(--color-primary);
     padding-left: math.div($spacing-unit, 2);
     font-size: 18px;
-    letter-spacing: -1px;
     font-style: italic;
 
     > :last-child {
@@ -124,6 +123,14 @@ blockquote {
     }
 }
 
+/**
+ * Horizontal rule
+ */
+hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: $spacing-unit 0;
+}
 
 /**
  * Code formatting
@@ -131,28 +138,27 @@ blockquote {
 pre,
 code {
     font-family: $code-font-family;
-    font-size: 15px;
-    border: 1px solid $grey-color-light;
-    border-radius: 3px;
-    background-color: #eef;
+    font-size: 14px;
+    border: 1px solid var(--color-code-border);
+    border-radius: 6px;
+    background-color: var(--color-code-bg);
+    color: var(--color-code-text);
 }
 
 code {
-    padding: 1px 5px;
+    padding: 2px 6px;
 }
 
 pre {
-    padding: 8px 12px;
+    padding: 16px 20px;
     overflow-x: auto;
 
     > code {
         border: 0;
-        padding-right: 0;
-        padding-left: 0;
+        padding: 0;
+        background: none;
     }
 }
-
-
 
 /**
  * Wrapper
@@ -187,13 +193,10 @@ pre {
     }
 }
 
-
-
 /**
  * Clearfix
  */
 %clearfix {
-
     &:after {
         content: "";
         display: table;
@@ -201,13 +204,10 @@ pre {
     }
 }
 
-
-
 /**
  * Icons
  */
 .icon {
-
     > svg {
         display: inline-block;
         width: 16px;
@@ -215,13 +215,17 @@ pre {
         vertical-align: middle;
 
         path {
-            fill: $grey-color;
+            fill: var(--color-text-muted);
+            transition: fill 0.15s ease;
         }
+    }
+
+    &:hover > svg path {
+        fill: var(--color-primary);
     }
 }
 
 .icon-large {
-
     > svg {
         display: inline-block;
         width: 64px;
@@ -229,7 +233,20 @@ pre {
         vertical-align: middle;
 
         path {
-            fill: $grey-color-dark;
+            fill: var(--color-text-secondary);
+            transition: fill 0.15s ease;
         }
     }
+
+    &:hover > svg path {
+        fill: var(--color-primary);
+    }
+}
+
+/**
+ * Selection
+ */
+::selection {
+    background-color: var(--color-primary);
+    color: white;
 }

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import IconTwitter from '../components/IconTwitter.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, date, author, twitter_username } = post.data;
+const { title, date, author, author_url } = post.data;
 
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -29,9 +28,10 @@ const isoDate = date.toISOString();
           <>
             {' • '}
             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <span itemprop="name">{author}</span>
-              {twitter_username && (
-                <IconTwitter username={twitter_username} />
+              {author_url ? (
+                <a href={author_url} itemprop="url"><span itemprop="name">{author}</span></a>
+              ) : (
+                <span itemprop="name">{author}</span>
               )}
             </span>
           </>

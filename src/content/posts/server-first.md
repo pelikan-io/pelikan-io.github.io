@@ -4,7 +4,7 @@ title:  "Server First"
 date:   2016-04-11 02:11:00 -0700
 author: Yao Yue
 tags: design, performance, operations
-twitter_username: thinkingfish
+author_url: https://yaoyue.org
 ---
 
 *This is the second post in our [blog series](http://pelikan.io/blog/)

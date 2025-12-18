@@ -2,7 +2,6 @@
 import '../styles/main.scss';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import IconTwitter from '../components/IconTwitter.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import type { CollectionEntry } from 'astro:content';
 
@@ -11,7 +10,7 @@ interface Props {
 }
 
 const { talk } = Astro.props;
-const { title, author, twitter_username, date, event, location, talk_url, slides_url, video_url, talk_duration } = talk.data;
+const { title, author, author_url, date, event, location, talk_url, slides_url, video_url, talk_duration } = talk.data;
 
 const formattedDate = date?.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -46,15 +45,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <Header />
 
   <article class="talk" itemscope itemtype="http://schema.org/Article">
-    <div class="wrapper">
+    <div class="wrapper-wide">
       <header class="talk-header">
         <h1 class="talk-title" itemprop="name headline">{title}</h1>
         {author && (
           <div class="talk-meta">
             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <span itemprop="name">{author}</span>
-              {twitter_username && (
-                <IconTwitter username={twitter_username} />
+              {author_url ? (
+                <a href={author_url} itemprop="url"><span itemprop="name">{author}</span></a>
+              ) : (
+                <span itemprop="name">{author}</span>
               )}
             </span>
             {date && (

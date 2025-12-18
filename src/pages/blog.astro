@@ -4,31 +4,123 @@ import { getCollection } from 'astro:content';
 
 const posts = await getCollection('posts');
 const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Extract a clean excerpt from markdown body
+function getExcerpt(body: string, maxLength = 200): string {
+  // Remove frontmatter if somehow included, then strip markdown syntax
+  const cleaned = body
+    .replace(/^---[\s\S]*?---/, '') // frontmatter
+    .replace(/#{1,6}\s+/g, '') // headings
+    .replace(/\*\*([^*]+)\*\*/g, '$1') // bold
+    .replace(/\*([^*]+)\*/g, '$1') // italic
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // links
+    .replace(/`[^`]+`/g, '') // inline code
+    .replace(/\[\^[^\]]+\]/g, '') // footnotes
+    .replace(/\n+/g, ' ') // newlines to spaces
+    .trim();
+
+  if (cleaned.length <= maxLength) return cleaned;
+  return cleaned.substring(0, maxLength).replace(/\s+\S*$/, '') + '…';
+}
 ---
 
 <BaseLayout title="Blog">
-  <div class="post-list">
-    {sortedPosts.map(async (post) => {
-      const { Content } = await post.render();
-      return (
-        <div>
-          <span class="post-meta">
-            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-          </span>
-          <h2>
-            <a class="post-link" href={`/blog/${post.slug}/`}>{post.data.title}</a>
-          </h2>
-          <p>
-            {post.body?.substring(0, 300)}...
-            <a href={`/blog/${post.slug}/`}>read more</a>
-          </p>
-          <hr>
-        </div>
-      );
-    })}
+  <div class="blog-grid">
+    {sortedPosts.map((post) => (
+      <article class="blog-card">
+        <a href={`/blog/${post.slug}/`} class="blog-card-link">
+          <div class="blog-card-content">
+            <time class="blog-card-date" datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+            </time>
+            <h2 class="blog-card-title">{post.data.title}</h2>
+            <p class="blog-card-excerpt">{getExcerpt(post.body || '')}</p>
+            {post.data.author && (
+              <span class="blog-card-author">{post.data.author}</span>
+            )}
+          </div>
+        </a>
+      </article>
+    ))}
   </div>
 
-  <div class="page-info" style="text-align: right;">
+  <div class="blog-footer">
     <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
   </div>
 </BaseLayout>
+
+<style>
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .blog-card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .blog-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .blog-card-link {
+    display: block;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .blog-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .blog-card-date {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .blog-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+
+  .blog-card-excerpt {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin: 4px 0 0;
+    line-height: 1.5;
+  }
+
+  .blog-card-author {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin-top: 8px;
+  }
+
+  .blog-footer {
+    text-align: right;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .rss-subscribe {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
+
+  .rss-subscribe a {
+    color: var(--color-primary);
+  }
+</style>

@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import IconGithubLarge from '../components/IconGithubLarge.astro';
 import { getCollection } from 'astro:content';
-import { DISCORD_URL } from '../consts';
+import { GITHUB_URL, DISCORD_URL } from '../consts';
 
 const posts = await getCollection('posts');
 const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -10,72 +9,255 @@ const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.val
 
 <BaseLayout>
   <div class="home">
-    <p class="page-announce">
-      Pelikan is a cache framework written in Rust and (historically) C. It
-      provides an expanding collection of cache services, including multiple
-      backends and proxies. It offers best-in-kind performance, superb operational
-      ergonomics, and excellent monitoring capabilities, making it suitable for
-      both local and large scale deployment. The modular design has attracted
-      researchers from multiple institutions to conduct cutting-edge cache
-      research and ready-to-ship development on the Pelikan platform.
-    </p>
+    <section class="hero">
+      <p class="hero-text">
+        Pelikan is a cache framework written in Rust (rewritten completely from C). It
+        provides an expanding collection of cache libraries and services, including multiple
+        backends and proxies. It offers best-in-kind performance, superb operational
+        ergonomics, and excellent monitoring capabilities, making it suitable for
+        both local and large scale deployment.
+      </p>
 
-    <div class="page-col-wrapper">
-      <div class="page-col">
-        <div style="text-align: center;">
-          <h2>Source</h2>
-          <a href="https://github.com/pelikan-io/pelikan">
-            <span class="icon-large icon--github">
-              <IconGithubLarge />
-            </span>
-          </a>
-        </div>
+      <div class="quick-links">
+        <a href={GITHUB_URL} class="quick-link">
+          <svg viewBox="0 0 16 16" width="24" height="24" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span>Source Code</span>
+        </a>
+        <a href={DISCORD_URL} class="quick-link">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+          </svg>
+          <span>Discord</span>
+        </a>
+        <a href="/feed.xml" class="quick-link">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/>
+          </svg>
+          <span>RSS Feed</span>
+        </a>
       </div>
-      <div class="page-col">
-        <div style="text-align: center;">
-          <h2>Discussion</h2>
-          <span>
-            <a href={DISCORD_URL}>
-              <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg" alt="Discord link" style="max-width:50%;">
-            </a>
-          </span>
+    </section>
+
+    <section class="featured-talk">
+      <h2 class="section-heading">Featured Talk</h2>
+      <div class="talk-card">
+        <div class="talk-video">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/pLRztKYvMLk"
+            frameborder="0"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
         </div>
-      </div>
-      <div class="page-col">
-        <div style="text-align: center;">
-          <h2>Follow</h2>
-          <p class="rss-subscribe" style="padding-bottom: 4px;">
-            <a href="/feed.xml">Blog RSS</a>
+        <div class="talk-info">
+          <h3>Cache a la carte: a framework for in-memory caching</h3>
+          <p>
+            In this StrangeLoop 2015 talk, we explained Pelikan's approach toward a
+            generalized framework for building caching software, and how we design
+            the system for both performance and operations.
           </p>
+          <a href="/talks/" class="talk-more">View all talks →</a>
         </div>
       </div>
-    </div>
+    </section>
 
-    <h1 class="page-heading">Talks</h1>
-    <ul class="video-list">
-      <li>
-        <div class="video-text-wrap">
-          <iframe width="320" height="180" src="https://www.youtube.com/embed/pLRztKYvMLk" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <h4>Cache a la carte: a framework for in-memory caching</h4>
-        <p class="video-text">
-          In this StrangeLoop 2015 talk, we explained Pelikan's approach toward a generalized framework for building caching software, and how we design the system for both performance and operations.
-        </p>
-      </li>
-    </ul>
-
-    <h1 class="page-heading">Posts</h1>
-    <ul class="post-list">
-      {sortedPosts.map((post) => (
-        <li>
-          <span class="post-meta">
-            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-          </span>
-          <h2>
-            <a class="post-link" href={`/blog/${post.slug}/`}>{post.data.title}</a>
-          </h2>
-        </li>
-      ))}
-    </ul>
+    <section class="recent-posts">
+      <h2 class="section-heading">Recent Posts</h2>
+      <div class="posts-grid">
+        {sortedPosts.map((post) => (
+          <a href={`/blog/${post.slug}/`} class="post-card">
+            <time class="post-card-date" datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+            </time>
+            <h3 class="post-card-title">{post.data.title}</h3>
+          </a>
+        ))}
+      </div>
+      <div class="posts-footer">
+        <a href="/blog/">View all posts →</a>
+      </div>
+    </section>
   </div>
 </BaseLayout>
+
+<style>
+  .home {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  /* Hero section */
+  .hero {
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  .hero-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    max-width: 720px;
+    margin: 0 auto 32px;
+  }
+
+  .quick-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .quick-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .quick-link:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-tertiary);
+  }
+
+  .quick-link svg {
+    flex-shrink: 0;
+  }
+
+  /* Section headings */
+  .section-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: var(--color-text);
+  }
+
+  /* Featured talk */
+  .talk-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .talk-card {
+      grid-template-columns: 320px 1fr;
+    }
+  }
+
+  .talk-video {
+    aspect-ratio: 16 / 9;
+    background: var(--color-bg-tertiary);
+  }
+
+  .talk-video iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  .talk-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  @media (min-width: 640px) {
+    .talk-info {
+      padding: 20px 24px 20px 0;
+    }
+  }
+
+  .talk-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .talk-info p {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .talk-more {
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    margin-top: auto;
+  }
+
+  .talk-more:hover {
+    text-decoration: underline;
+  }
+
+  /* Posts grid */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .post-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .post-card-date {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .post-card-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .posts-footer {
+    margin-top: 16px;
+    text-align: right;
+  }
+
+  .posts-footer a {
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .posts-footer a:hover {
+    text-decoration: underline;
+  }
+</style>

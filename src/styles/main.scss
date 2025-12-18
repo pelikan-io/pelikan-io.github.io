@@ -1,46 +1,136 @@
 @charset "utf-8";
+@use "sass:color";
 
 // IBM Plex fonts
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
 
-// Our variables
+// =============================================================================
+// Flexoki-inspired palette with Pelican customizations
+// =============================================================================
+
+// Base Flexoki colors
+$fx-black: #100F0F;
+$fx-950: #1C1B1A;
+$fx-900: #282726;
+$fx-850: #343331;
+$fx-800: #403E3C;
+$fx-700: #575653;
+$fx-600: #6F6E69;
+$fx-500: #878580;
+$fx-300: #B7B5AC;
+$fx-200: #CECDC3;
+$fx-150: #DAD8CE;
+$fx-100: #E6E4D9;
+$fx-50: #F2F0E5;
+$fx-paper: #FFFCF0;
+
+// Pelican accent colors
+$pelican-orange: #DA702C;  // Bill pouch coral-orange
+$pelican-blue: #4385BE;    // Coastal slate blue
+
+// Flexoki accent colors (for variety)
+$fx-red: #AF3029;
+$fx-orange: #BC5215;
+$fx-yellow: #AD8301;
+$fx-green: #66800B;
+$fx-cyan: #24837B;
+$fx-blue: #205EA6;
+$fx-purple: #5E409D;
+$fx-magenta: #A02F6F;
+
+// =============================================================================
+// CSS Custom Properties for theme switching
+// =============================================================================
+
+:root {
+  // Light mode (default) - warm cream backgrounds like pelican plumage
+  --color-bg: #{$fx-paper};
+  --color-bg-secondary: #{$fx-100};
+  --color-bg-tertiary: #{$fx-150};
+  --color-text: #{$fx-black};
+  --color-text-secondary: #{$fx-600};
+  --color-text-muted: #{$fx-500};
+  --color-border: #{$fx-200};
+  --color-border-light: #{$fx-150};
+
+  // Accent colors
+  --color-primary: #{$pelican-orange};
+  --color-primary-hover: #{color.scale($pelican-orange, $lightness: -15%)};
+  --color-secondary: #{$pelican-blue};
+  --color-link: #{$pelican-blue};
+  --color-link-visited: #{color.scale($pelican-blue, $lightness: -10%)};
+
+  // Code blocks
+  --color-code-bg: #{$fx-100};
+  --color-code-text: #{$fx-black};
+  --color-code-border: #{$fx-200};
+
+  // Syntax highlighting
+  --syntax-comment: #{$fx-500};
+  --syntax-keyword: #{$fx-purple};
+  --syntax-string: #{$fx-cyan};
+  --syntax-number: #{$fx-orange};
+  --syntax-function: #{$fx-blue};
+  --syntax-variable: #{$fx-red};
+  --syntax-operator: #{$fx-600};
+}
+
+[data-theme="dark"] {
+  // Dark mode - deep ink backgrounds like coastal night
+  --color-bg: #{$fx-950};
+  --color-bg-secondary: #{$fx-900};
+  --color-bg-tertiary: #{$fx-850};
+  --color-text: #{$fx-200};
+  --color-text-secondary: #{$fx-300};
+  --color-text-muted: #{$fx-500};
+  --color-border: #{$fx-800};
+  --color-border-light: #{$fx-850};
+
+  // Accent colors (slightly brighter for dark mode)
+  --color-primary: #{color.scale($pelican-orange, $lightness: 10%)};
+  --color-primary-hover: #{color.scale($pelican-orange, $lightness: 20%)};
+  --color-secondary: #{color.scale($pelican-blue, $lightness: 15%)};
+  --color-link: #{color.scale($pelican-blue, $lightness: 20%)};
+  --color-link-visited: #{color.scale($pelican-blue, $lightness: 10%)};
+
+  // Code blocks
+  --color-code-bg: #{$fx-900};
+  --color-code-text: #{$fx-200};
+  --color-code-border: #{$fx-800};
+
+  // Syntax highlighting (brighter for dark bg)
+  --syntax-comment: #{$fx-500};
+  --syntax-keyword: #B392F0;
+  --syntax-string: #56D4DD;
+  --syntax-number: #FFAB70;
+  --syntax-function: #79B8FF;
+  --syntax-variable: #F97583;
+  --syntax-operator: #{$fx-300};
+}
+
+// =============================================================================
+// Base variables (using CSS custom properties)
+// =============================================================================
+
 $base-font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 $code-font-family: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
 $base-font-size:   16px;
 $base-font-weight: 400;
 $small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+$base-line-height: 1.6;
 
 $spacing-unit:     30px;
-
-$text-color:       #111;
-$background-color: #fdfdfd;
-$brand-color:      #2a7ae2;
-
-$grey-color:       #828282;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
-
-// Width of the content area
 $content-width:    800px;
-
 $on-palm:          600px;
 $on-laptop:        800px;
 
-// Use media queries like this:
-// @include media-query($on-palm) {
-//     .wrapper {
-//         padding-right: math.div($spacing-unit, 2);
-//         padding-left: math.div($spacing-unit, 2);
-//     }
-// }
 @mixin media-query($device) {
     @media screen and (max-width: $device) {
         @content;
     }
 }
 
-// Import partials from `sass_dir` (defaults to `_sass`)
+// Import partials
 @import
         "base",
         "img",
