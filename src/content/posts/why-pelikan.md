@@ -134,7 +134,7 @@ deterministic memory allocation, wait-less logging/stats, and other carefully
 chosen design patterns. For more details, see [this talk](https://www.infoq.com/presentations/pelikan)
 at QConSF 2016.
 
-  ![pelikan_twemcache_latency]({{ "/assets/img/pelikan_twemcache_latency.jpg" | prepend: site.baseurl }})
+  ![pelikan_twemcache_latency](/assets/img/pelikan_twemcache_latency.jpg)
 
 Side-by-side benchmarking using an identical [rpc-perf](https://github.com/twitter/rpc-perf)
 setup that emulates cache traffic to a major cache cluster shows that Pelikan

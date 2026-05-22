@@ -65,7 +65,7 @@ making it way ahead of persistent media when it comes to performance.
 
 The following figure captures the relative "closeness" of data at different
 locations:
-  ![data access speed]({{ "/assets/img/data_access_speed.jpg" | prepend: site.baseurl }})
+  ![data access speed](/assets/img/data_access_speed.jpg)
 
 
 The typical datacenter infrastructure has a few implications:
